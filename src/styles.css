@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #000076;
+  --color-paper: #F3FBFF;
+  --color-gold: #F4C500;
+  --color-line: #CCDCE9;
+  --font-sans: "Helvetica Neue", Arial, sans-serif;
+  --font-display: Georgia, "Times New Roman", serif;
+}
+
+@layer base {
+  body { @apply bg-paper text-ink antialiased; }
+  #root { @apply flex min-h-screen flex-col; }
+  main { @apply flex-1 focus:outline-none; }
+  p { @apply leading-relaxed; }
+  h1, h2 { @apply font-display font-normal tracking-tight; }
+  h1 { font-size: clamp(3rem, 6.5vw, 6.25rem); line-height: 1; }
+  h2 { font-size: clamp(2.125rem, 4.3vw, 3.75rem); line-height: 1.08; }
+  h3 { @apply text-xl font-semibold tracking-tight; }
+  :focus-visible { @apply outline-2 outline-offset-4 outline-ink; }
+}
+
+@layer components {
+  .site-shell { @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12; }
+  .project-shell { @apply mx-auto w-full max-w-[112rem] px-4 sm:px-6 lg:px-8; }
+  .skip-link { @apply sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-gold focus:px-4 focus:py-3; }
+  .button { @apply inline-flex min-h-12 cursor-pointer items-center justify-center rounded-md border border-transparent bg-gold px-5 py-2.5 text-center text-sm font-bold text-ink transition-colors hover:border-ink; }
+  .text-link { @apply font-semibold underline decoration-gold decoration-2 underline-offset-4 hover:decoration-ink; }
+  .eyebrow { @apply mb-5 flex items-center gap-3 text-sm font-bold tracking-widest uppercase before:h-0.5 before:w-7 before:bg-gold before:content-['']; }
+  .lede { @apply mt-5 max-w-2xl text-lg leading-relaxed sm:text-xl; }
+  .hero-photo { @apply absolute inset-0 size-full scale-[1.02] object-cover blur-[1px]; }
+  .hero-photo-enter { @apply motion-safe:animate-[hero-slide_850ms_ease-out_both]; }
+  .section-padding, .services-section { @apply py-12 md:py-20; }
+  .services-section { @apply border-t border-line; }
+  .service-grid { @apply mt-8 grid gap-5 md:grid-cols-3; }
+  .service-card { @apply rounded-xl border border-line border-t-4 border-t-gold bg-white p-6 shadow-sm lg:p-8; }
+  .service-card p { @apply mt-3; }
+  .page-intro { @apply border-b border-line py-12 md:py-20; }
+  .page-intro h1 { @apply max-w-5xl; }
+  .about-grid, .contact-grid { @apply grid gap-8 md:grid-cols-[0.8fr_1.2fr] lg:gap-16; }
+  .prose { @apply max-w-2xl; }
+  .prose p, .prose h2 { @apply mb-4; }
+  .prose p { @apply text-lg; }
+  .project-callout { @apply border-t border-line py-10 md:py-14; }
+  .callout-inner { @apply grid items-center gap-6 sm:grid-cols-[1fr_auto]; }
+  .callout-inner p { @apply mt-3; }
+  .callout-inner .button { @apply justify-self-start; }
+  .contact-form { @apply grid gap-5 [color-scheme:dark]; }
+  .field-row { @apply grid gap-4 sm:grid-cols-2; }
+  .contact-form label { @apply grid min-w-0 gap-2 text-sm font-semibold text-paper; }
+  .contact-form input, .contact-form select, .contact-form textarea {
+    @apply min-h-12 w-full rounded-lg border border-paper/35 bg-[#07172F] px-4 py-2.5 text-base font-normal text-paper placeholder:text-paper/65 hover:border-paper/60 focus:border-gold focus-visible:outline-gold;
+  }
+  .contact-form select { @apply appearance-none pr-9; }
+  .contact-form textarea { @apply resize-y; }
+  .form-status:not(:empty) { @apply mt-3; }
+}
+
+@keyframes hero-slide {
+  from { opacity: 0; transform: translateX(5%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .expertise-flip[open] {
+    animation: expertise-flip-in 360ms ease-out both;
+  }
+}
+
+@keyframes expertise-flip-in {
+  from { transform: perspective(1000px) rotateY(-78deg); }
+  to { transform: perspective(1000px) rotateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .project-strip-track {
+    animation: project-strip-scroll 115s linear infinite;
+  }
+  .project-strip-track[data-paused="true"],
+  .project-strip-window:hover .project-strip-track {
+    animation-play-state: paused;
+  }
+  .project-strip-window:focus-visible,
+  .project-strip-window:has(a:focus-visible) {
+    overflow-x: auto;
+  }
+  .project-strip-window:has(a:focus-visible) .project-strip-track {
+    animation: none;
+  }
+}
+
+@keyframes project-strip-scroll {
+  to { transform: translateX(-50%); }
+}
