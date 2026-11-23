@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { FiArrowRight, FiPause, FiPlay } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
-import logo from '../Assets/logo/mfb-logo.png'
 import { site } from '../content/site'
 
 const photos = Object.entries(
@@ -49,14 +48,8 @@ export function Hero() {
       </div>
 
       <div className="site-shell motion-safe:animate-[projects-copy-rise_750ms_ease-out_both]">
-        <h1 id="hero-title">
-          <img
-            className="h-auto w-[clamp(12rem,30vw,25rem)] max-w-full rounded-sm"
-            src={logo}
-            alt={site.name}
-            width={512}
-            height={177}
-          />
+        <h1 id="hero-title" className="leading-none font-black tracking-tight sm:text-[clamp(2.75rem,6.5vw,6.25rem)]">
+          {site.name}
         </h1>
         <p className="mt-3 text-intro leading-snug font-semibold sm:mt-4">
           A fast-growing multinational construction company
