@@ -1,11 +1,7 @@
-import { FiImage, FiLayers, FiMapPin } from 'react-icons/fi'
+import { FiMapPin } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { PageTitle } from '../components/PageTitle'
-import { projectGroups, projectImage, projectPath, projects } from '../content/projectGallery'
-
-const photoCount = projects.reduce((count, project) => count + project.photos.length, 0)
-
-
+import { projectGroups, projectImage, projectPath } from '../content/projectGallery'
 
 export function ProjectsPage() {
   return (
@@ -34,28 +30,25 @@ export function ProjectsPage() {
             <div className="project-shell">
               <div className="mb-6 flex flex-wrap items-end justify-between gap-3 border-b border-line pb-4">
                 <h2 id={`${id}-title`} className="border-l-4 border-gold pl-4 font-sans text-subsection-title leading-tight font-bold">{title}</h2>
-                <p className="text-sm font-semibold">{groupProjects.length} projects</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-5">
-                {groupProjects.flatMap(({ slug, title: projectName, location, client, photos }) =>
-                  photos.map((photo) => (
-                    <Link className="projects-photo-tile group grid overflow-hidden rounded-xl border border-line bg-white shadow-sm transition-colors hover:border-gold focus-visible:-outline-offset-4" to={projectPath(slug)} key={photo}>
-                      <div className="overflow-hidden">
-                        <img className="aspect-[4/3] w-full bg-paper object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-105 motion-safe:group-focus-visible:scale-105" src={projectImage(photo)} alt="" loading="lazy" decoding="async" />
-                      </div>
-                      <div className="self-start px-4 py-4">
-                        <h3 className="text-base leading-snug group-hover:underline group-hover:decoration-gold group-hover:underline-offset-4">{projectName}</h3>
-                        {location && (
-                          <p className="mt-2 flex items-start gap-2 text-sm">
-                            <FiMapPin className="mt-0.5 shrink-0 text-red-600" aria-hidden="true" />
-                            {location}
-                          </p>
-                        )}
-                        {client && <p className="mt-2 text-sm"><strong>Client:</strong> {client}</p>}
-                      </div>
-                    </Link>
-                  )),
-                )}
+                {groupProjects.map(({ slug, title: projectName, location, client, photos: [coverPhoto] }) => (
+                  <Link className="projects-photo-tile group grid overflow-hidden rounded-xl border border-line bg-white shadow-sm transition-colors hover:border-gold focus-visible:-outline-offset-4" to={projectPath(slug)} key={slug}>
+                    <div className="overflow-hidden">
+                      <img className="aspect-[4/3] w-full bg-paper object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-105 motion-safe:group-focus-visible:scale-105" src={projectImage(coverPhoto)} alt="" loading="lazy" decoding="async" />
+                    </div>
+                    <div className="self-start px-4 py-4">
+                      <h3 className="text-base leading-snug group-hover:underline group-hover:decoration-gold group-hover:underline-offset-4">{projectName}</h3>
+                      {location && (
+                        <p className="mt-2 flex items-start gap-2 text-sm">
+                          <FiMapPin className="mt-0.5 shrink-0 text-red-600" aria-hidden="true" />
+                          {location}
+                        </p>
+                      )}
+                      {client && <p className="mt-2 text-sm"><strong>Client:</strong> {client}</p>}
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
           </section>

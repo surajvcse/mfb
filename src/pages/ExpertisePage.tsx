@@ -19,13 +19,7 @@ export function ExpertisePage() {
         </div>
       </section>
 
-      <nav className="border-b border-line bg-white" aria-label="Expertise areas">
-        <ul className="site-shell flex flex-wrap gap-x-5 gap-y-1 py-2">
-          {expertise.map(({ id, title }) => (
-            <li key={id}><a className="inline-flex min-h-11 items-center border-b-2 border-transparent text-sm font-semibold hover:border-gold" href={`#${id}`}>{title}</a></li>
-          ))}
-        </ul>
-      </nav>
+      
 
       <div className="divide-y divide-line">
         {expertise.map(({ id, title, summary, photo, photoCaption, projectSlug, services }, index) => (
@@ -34,7 +28,7 @@ export function ExpertisePage() {
               <div className={index % 2 === 0 ? '' : 'lg:col-start-2 lg:row-start-1'}>
                 <h2 className="w-fit rounded-lg border-2 border-gold px-3 py-2 text-subsection-title leading-tight font-bold sm:px-4" id={`${id}-title`}>{title}</h2>
                 <p className="mt-4 max-w-prose">{summary}</p>
-                <ul className="mt-5 grid list-disc gap-x-6 gap-y-2 pl-5 marker:text-gold sm:grid-cols-2">
+                <ul className="mt-5 grid list-disc gap-x-6 gap-y-2 pl-5 text-sm marker:text-gold sm:grid-cols-2">
                   {services.map((service) => <li key={service}>{service}</li>)}
                 </ul>
               </div>

@@ -91,7 +91,7 @@ export function AboutPage() {
               <h2 id="about-expertise-title" className="border-l-4 border-gold pl-4 font-sans font-bold">
                 Our expertise
               </h2>
-              <p className="mt-4 max-w-2xl">
+              <p className="mt-4 max-w-2xl text-sm">
                 We bring engineering design and specialist construction together for complex ground and infrastructure projects.
               </p>
             </div>
@@ -109,7 +109,7 @@ export function AboutPage() {
                   </Link>
                   <div className="border-t-2 border-gold px-5 py-4">
                     <h3 className="leading-snug">{title}</h3>
-                    <p className="mt-2 text-ink/85">{summary}</p>
+                    <p className="mt-2 text-sm text-ink/85">{summary}</p>
                   </div>
                 </article>
               </div>
