@@ -48,10 +48,10 @@ export function AboutPage() {
         <div className="absolute inset-0 -z-10 bg-linear-to-r from-[#07172F]/98 via-[#07172F]/80 to-[#07172F]/15" aria-hidden="true" />
         <div className="site-shell projects-hero-copy">
           <p className="eyebrow text-gold">About MFB Geotech</p>
-          <h1 id="about-title" className="max-w-[19ch] text-balance text-[clamp(2.5rem,5.5vw,5.25rem)] leading-[1.08] font-bold tracking-tight">
+          <h1 id="about-title" className="max-w-[19ch] text-balance leading-[1.08] font-bold tracking-tight">
             Engineering the ground. Building stronger foundations.
           </h1>
-          <p className="mt-5 max-w-xl border-l-4 border-gold pl-4 text-lg text-paper/95">
+          <p className="mt-5 max-w-xl border-l-4 border-gold pl-4 text-intro text-paper/95">
             Specialised geotechnical engineering and construction across South Asia and the Middle East.
           </p>
         </div>
@@ -95,7 +95,7 @@ export function AboutPage() {
                 We bring engineering design and specialist construction together for complex ground and infrastructure projects.
               </p>
             </div>
-            <Link className="text-link inline-flex min-h-11 items-center" to="/services">
+            <Link className="button" to="/services">
               Explore all capabilities
             </Link>
           </div>

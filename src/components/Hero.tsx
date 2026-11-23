@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
-import { FiPause, FiPlay } from 'react-icons/fi'
+import { FiArrowRight, FiPause, FiPlay } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+import logo from '../Assets/logo/mfb-logo.png'
+import { site } from '../content/site'
 
 const photos = Object.entries(
   import.meta.glob<string>('../Assets/hero/*.jpg', { eager: true, import: 'default', query: '?url' }),
@@ -32,7 +34,7 @@ export function Hero() {
   }, [playing, step])
 
   return (
-    <section className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden bg-[#091d43] pt-36 pb-24 text-paper" aria-labelledby="hero-title">
+    <section className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden bg-[#091d43] pt-28 pb-20 sm:pt-32 sm:pb-24 lg:pt-36 text-paper" aria-labelledby="hero-title">
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
         {step > 0 && <img src={photos[previous]} alt="" className="hero-photo" />}
         <img
@@ -46,25 +48,34 @@ export function Hero() {
         <div className="absolute inset-0 bg-linear-to-r from-[#091e43]/95 via-[#091e43]/75 to-[#091e43]/35 md:via-[#091e43]/60 md:to-[#091e43]/15" />
       </div>
 
-      <div className="site-shell">
-        <h1 id="hero-title" className="font-sans text-[clamp(3rem,8vw,7.5rem)] leading-none font-black tracking-tight">
-          MFB Geotech
+      <div className="site-shell motion-safe:animate-[projects-copy-rise_750ms_ease-out_both]">
+        <h1 id="hero-title">
+          <img
+            className="h-auto w-[clamp(12rem,30vw,25rem)] max-w-full rounded-sm"
+            src={logo}
+            alt={site.name}
+            width={512}
+            height={177}
+          />
         </h1>
-        <p className="mt-4 text-lg font-semibold sm:text-2xl">
+        <p className="mt-3 text-intro leading-snug font-semibold sm:mt-4">
           A fast-growing multinational construction company
         </p>
-        <ul className="mt-5 flex max-w-2xl flex-wrap gap-2" aria-label="Core services">
+        <ul className="mt-4 flex max-w-3xl flex-wrap gap-x-4 gap-y-2 sm:mt-5 sm:gap-x-6 sm:gap-y-3" aria-label="Core services">
           {['Tunnelling', 'Foundations', 'Slope stabilisation', 'Ground improvement'].map((service) => (
-            <li className="rounded-md border border-gold/65 bg-[#07172F]/85 px-3 py-2 text-sm font-bold text-gold sm:text-base" key={service}>
+            <li className="text-sm font-semibold text-paper underline decoration-gold decoration-2 underline-offset-[0.4em] lg:text-base" key={service}>
               {service}
             </li>
           ))}
         </ul>
-        <p className="mt-4 max-w-2xl text-base sm:text-lg">
+        <p className="mt-5 max-w-2xl text-intro sm:mt-6">
           We provide cost-effective, one-stop solutions by combining specialist design and construction.
           Our highly qualified teams and advanced equipment support safe, reliable project delivery.
         </p>
-        <Link className="button mt-6 focus-visible:outline-paper" to="/contact">Discuss your project</Link>
+        <Link className="group mt-5 inline-flex min-h-12 sm:mt-7 items-center gap-4 rounded-lg bg-gold px-4 py-3 text-sm font-bold text-ink shadow-lg hover:bg-paper focus-visible:outline-paper motion-safe:transition-colors sm:min-h-16 sm:gap-6 sm:px-7 lg:text-base" to="/contact">
+          Discuss your project
+          <FiArrowRight className="size-5 shrink-0 sm:size-6 motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:translate-x-1.5 motion-safe:group-focus-visible:translate-x-1.5" aria-hidden="true" />
+        </Link>
       </div>
 
       <button

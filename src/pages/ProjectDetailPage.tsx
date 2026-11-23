@@ -28,7 +28,7 @@ export function ProjectDetailPage() {
             All projects
           </Link>
           <p className="eyebrow mt-5">{project.category}</p>
-          <h1 className="max-w-5xl text-balance text-[clamp(2.25rem,5.5vw,4.75rem)] leading-[1.08] font-bold">
+          <h1 className="max-w-5xl text-balance leading-[1.08] font-bold">
             {project.title}
           </h1>
           <dl className="mt-6 grid gap-y-4 border-y border-line py-4 sm:flex sm:flex-wrap sm:gap-x-12">
@@ -52,7 +52,7 @@ export function ProjectDetailPage() {
         </header>
 
         <section className="mt-8 sm:mt-10" aria-labelledby="project-photos-title">
-          <h2 id="project-photos-title" className="mb-4 border-l-4 border-gold pl-3 text-xl leading-tight font-bold sm:text-2xl">Project photos</h2>
+          <h2 id="project-photos-title" className="mb-4 border-l-4 border-gold pl-3 text-subsection-title leading-tight font-bold">Project photos</h2>
           <div className="relative">
             {project.photos.length > 1 && (
               <div className="pointer-events-none absolute z-10 inset-x-2 top-1/2 flex -translate-y-1/2 justify-between sm:inset-x-4" aria-label="Photo navigation" role="group">

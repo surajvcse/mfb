@@ -19,10 +19,12 @@ Install dependencies with `npm ci` and start the development server with `npm ru
 
 ## Contact form
 
-The contact form opens a prefilled draft in the visitor’s email app, addressed to `info@mfbumi.com` by default. To use a different recipient, set `VITE_CONTACT_EMAIL` in `.env.local` and restart the development server or rebuild.
+The contact form submits to `POST /api/contact`. The server appends each successful inquiry to the **Project inquiries** worksheet in `.contact-data/contact-inquiries.xlsx`. The workbook is created on the first submission and stays outside the public build directory.
+
+Set the server environment variable `CONTACT_DATA_DIR` if you want the workbook stored in a different private, writable directory. Keep that directory outside `public/` and `dist/`.
 
 ## Production build
 
-Run `npm run build` to type-check and generate `dist/`. Use `npm run preview` to serve the built files locally. When hosting, configure the server to serve `index.html` for application routes so direct visits and refreshes work.
+Run `npm run build` followed by `npm start`. The Node server serves both the built website and the contact endpoint. It listens on `127.0.0.1:4173` by default. Set `HOST` and `PORT` as needed. Configure persistent storage for the workbook when deploying. Static hosting alone does not serve the contact endpoint.
 
 The home hero uses web-sized copies of the supplied project photos in `src/Assets/hero/`. The originals are in `src/Assets/imges/`.

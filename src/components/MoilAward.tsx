@@ -14,9 +14,9 @@ export function MoilAward() {
           </span>
           <div>
             <p className="mb-1 text-sm font-bold tracking-wide uppercase">Project award</p>
-            <h1 id="moil-award-title" className="font-sans text-2xl leading-tight font-bold tracking-tight sm:text-3xl">
+            <h2 id="moil-award-title" className="font-sans text-subsection-title leading-tight font-bold tracking-tight">
             AWARDS
-            </h1>
+            </h2>
             <p className="mx-auto mt-2 max-w-3xl text-pretty">
               WE HAVE BEEN AWARDED WITH TWO TURNKEY PROJECTS BY MOIL LIMITED FOR THE DESIGN, CONSTRUCTION, FURNISHING, AND EQUIPPING OF PRODUCTION SHAFTS AT KANDRI MINE AND DONGRI BUZURG MINE. DEPTH 505 MTR.
             </p>

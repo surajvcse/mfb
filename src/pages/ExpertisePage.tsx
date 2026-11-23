@@ -12,8 +12,8 @@ export function ExpertisePage() {
         <div className="absolute inset-0 -z-10 bg-linear-to-r from-[#07172F] via-[#07172F]/82 to-[#07172F]/25" aria-hidden="true" />
         <div className="site-shell projects-hero-copy">
           <p className="eyebrow text-gold">MFB Geotech</p>
-          <h1 id="expertise-page-title" className="font-bold tracking-tight">Our Expertise</h1>
-          <p className="mt-5 max-w-2xl border-l-4 border-gold pl-4 text-lg sm:text-xl">
+          <h1 id="expertise-page-title" className="w-fit rounded-lg border-2 border-gold bg-[#07172F]/50 px-4 py-2 font-bold tracking-tight sm:px-6 sm:py-3">Our Expertise</h1>
+          <p className="mt-5 max-w-2xl border-l-4 border-gold pl-4 text-intro">
             Specialist design and construction for challenging ground, underground works, and infrastructure.
           </p>
         </div>
@@ -32,9 +32,9 @@ export function ExpertisePage() {
           <section className="scroll-mt-24 bg-white even:bg-paper" id={id} aria-labelledby={`${id}-title`} key={id}>
             <div className="site-shell grid items-start gap-7 py-10 sm:py-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
               <div className={index % 2 === 0 ? '' : 'lg:col-start-2 lg:row-start-1'}>
-                <h2 className="border-l-4 border-gold pl-4 text-2xl leading-tight font-bold sm:text-3xl" id={`${id}-title`}>{title}</h2>
-                <p className="mt-4 max-w-prose text-lg">{summary}</p>
-                <ul className="mt-5 grid list-disc gap-x-6 gap-y-2 pl-5 marker:text-ink sm:grid-cols-2">
+                <h2 className="w-fit rounded-lg border-2 border-gold px-3 py-2 text-subsection-title leading-tight font-bold sm:px-4" id={`${id}-title`}>{title}</h2>
+                <p className="mt-4 max-w-prose">{summary}</p>
+                <ul className="mt-5 grid list-disc gap-x-6 gap-y-2 pl-5 marker:text-gold sm:grid-cols-2">
                   {services.map((service) => <li key={service}>{service}</li>)}
                 </ul>
               </div>

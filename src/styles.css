@@ -5,19 +5,39 @@
   --color-paper: #F3FBFF;
   --color-gold: #F4C500;
   --color-line: #CCDCE9;
+  --text-page-title: clamp(1.875rem, 1.15rem + 3.3vw, 4.75rem);
+  --text-section-title: clamp(1.5rem, 1.1rem + 1.9vw, 3.25rem);
+  --text-subsection-title: clamp(1.25rem, 1rem + 1.2vw, 2rem);
+  --text-card-title: clamp(1.0625rem, 0.98rem + 0.35vw, 1.25rem);
+  --text-intro: clamp(1rem, 0.92rem + 0.4vw, 1.25rem);
   --font-sans: "Poppins", sans-serif;
 }
 
 @layer base {
-  body { @apply bg-paper font-sans text-ink antialiased; }
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    font-size: clamp(0.9375rem, 0.91rem + 0.14vw, 1rem);
+  }
   #root { @apply flex min-h-screen flex-col; }
   main { @apply flex-1 focus:outline-none; }
   p { @apply leading-relaxed; }
   h1, h2 { @apply font-sans font-normal tracking-tight; }
-  h1 { font-size: clamp(3rem, 6.5vw, 6.25rem); line-height: 1; }
-  h2 { font-size: clamp(2.125rem, 4.3vw, 3.75rem); line-height: 1.08; }
-  h3 { @apply text-xl font-semibold tracking-tight; }
+  h1 { font-size: var(--text-page-title); line-height: 1.1; }
+  h2 { font-size: var(--text-section-title); line-height: 1.15; }
+  h3 { @apply text-card-title leading-snug font-semibold tracking-tight; }
   :focus-visible { @apply outline-2 outline-offset-4 outline-ink; }
+
+  @media (width < 40rem) {
+    :root {
+      --text-page-title: clamp(1.625rem, 1rem + 3vw, 2.125rem);
+      --text-section-title: clamp(1.375rem, 1rem + 1.7vw, 1.75rem);
+      --text-subsection-title: clamp(1.125rem, 1rem + 0.75vw, 1.3125rem);
+      --text-card-title: 1rem;
+      --text-intro: 0.9375rem;
+    }
+
+    body { font-size: 0.875rem; }
+  }
 }
 
 @layer components {
@@ -27,7 +47,7 @@
   .button { @apply inline-flex min-h-12 cursor-pointer items-center justify-center rounded-md border border-transparent bg-gold px-5 py-2.5 text-center text-sm font-bold text-ink transition-colors hover:border-ink; }
   .text-link { @apply font-semibold underline decoration-gold decoration-2 underline-offset-4 hover:decoration-ink; }
   .eyebrow { @apply mb-5 flex items-center gap-3 text-sm font-bold tracking-widest uppercase before:h-0.5 before:w-7 before:bg-gold before:content-['']; }
-  .lede { @apply mt-5 max-w-2xl text-lg leading-relaxed sm:text-xl; }
+  .lede { @apply mt-5 max-w-2xl text-intro leading-relaxed; }
   .hero-photo { @apply absolute inset-0 size-full scale-[1.02] object-cover blur-[1px]; }
   .hero-photo-enter { @apply motion-safe:animate-[hero-slide_850ms_ease-out_both]; }
   .section-padding, .services-section { @apply py-12 md:py-20; }
@@ -40,7 +60,7 @@
   .about-grid, .contact-grid { @apply grid gap-8 md:grid-cols-[0.8fr_1.2fr] lg:gap-16; }
   .prose { @apply max-w-2xl; }
   .prose p, .prose h2 { @apply mb-4; }
-  .prose p { @apply text-lg; }
+  .prose h2 { @apply text-subsection-title; }
   .contact-form { @apply grid gap-5 [color-scheme:dark]; }
   .field-row { @apply grid gap-4 sm:grid-cols-2; }
   .contact-form label { @apply grid min-w-0 gap-2 text-sm font-semibold text-paper; }
@@ -148,3 +168,17 @@
     .about-expertise-details[open]::details-content { block-size: auto; }
   }
 }
+
+.office-map:fullscreen {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-paper);
+}
+
+.office-map:fullscreen .office-map-frame {
+  flex: 1;
+  min-height: 0;
+  height: 0;
+}
+
+.office-map .leaflet-container { font-family: var(--font-sans); }

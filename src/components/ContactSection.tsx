@@ -26,16 +26,16 @@ export function ContactSection({ standalone = false }: { standalone?: boolean })
       <div className="site-shell grid items-start gap-x-12 gap-y-6 py-12 sm:py-16 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:py-20 xl:gap-x-20">
         <div>
           <p className="eyebrow mb-3 text-gold">Contact us</p>
-          <Heading id={titleId} className="font-sans text-[clamp(2.5rem,5vw,4.5rem)] leading-tight font-black tracking-tight">
+          <Heading id={titleId} className="font-sans text-section-title leading-tight font-black tracking-tight">
             Get in <span className="text-gold">touch</span>
           </Heading>
-          <p className="mt-3 max-w-md text-base leading-relaxed text-paper/85 sm:text-lg">
+          <p className="mt-3 max-w-md text-intro leading-relaxed text-paper/85">
             Tell us about your project and where you need ground engineering support.
           </p>
         </div>
 
         <div className="min-w-0 border-t border-paper/35 pt-5 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8 xl:pl-12">
-          <p className="mb-4 text-xl font-bold">Project inquiry</p>
+          <p className="mb-4 text-card-title font-bold">Project inquiry</p>
           <ContactForm />
         </div>
 

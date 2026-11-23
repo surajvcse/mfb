@@ -17,7 +17,7 @@ export function ProjectsPage() {
         <div className="project-shell projects-hero-copy">
           <p className="eyebrow text-gold">MFB Geotech projects</p>
           <h1 id="projects-title" className="font-sans font-black tracking-tight">Our Projects</h1>
-          <p className="mt-5 max-w-2xl text-lg sm:text-xl">
+          <p className="mt-5 max-w-2xl text-intro">
             Explore our work in hydropower, mining, tunnelling, slope stabilisation, and dredging.
           </p>
           <a className="button mt-7 focus-visible:outline-paper" href="#project-portfolio">Explore</a>
@@ -33,7 +33,7 @@ export function ProjectsPage() {
           <section className="scroll-mt-24 border-b border-line bg-white py-10 even:bg-paper sm:py-14" id={id} aria-labelledby={`${id}-title`} key={id}>
             <div className="project-shell">
               <div className="mb-6 flex flex-wrap items-end justify-between gap-3 border-b border-line pb-4">
-                <h2 id={`${id}-title`} className="border-l-4 border-gold pl-4 font-sans text-2xl leading-tight font-bold sm:text-4xl">{title}</h2>
+                <h2 id={`${id}-title`} className="border-l-4 border-gold pl-4 font-sans text-subsection-title leading-tight font-bold">{title}</h2>
                 <p className="text-sm font-semibold">{groupProjects.length} projects</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-5">

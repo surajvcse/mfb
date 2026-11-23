@@ -50,7 +50,7 @@ export function NumberSection({ compact = false }: { compact?: boolean }) {
       <div className="absolute inset-0 -z-10 bg-linear-to-br from-[#07172F]/95 via-[#07172F]/85 to-[#07172F]/75" aria-hidden="true" />
       <div className="site-shell">
         <p className="eyebrow text-gold">Our team</p>
-        <h2 id="team-numbers-title" className="max-w-3xl text-balance font-sans text-[clamp(2.5rem,6vw,5rem)] leading-none font-black">
+        <h2 id="team-numbers-title" className="max-w-3xl text-balance font-sans leading-tight font-black">
           MFB Geotech Team
         </h2>
         <dl ref={counters} className="mt-8 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-4 lg:grid-cols-4">
