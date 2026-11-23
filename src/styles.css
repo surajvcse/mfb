@@ -41,10 +41,6 @@
   .prose { @apply max-w-2xl; }
   .prose p, .prose h2 { @apply mb-4; }
   .prose p { @apply text-lg; }
-  .project-callout { @apply border-t border-line py-10 md:py-14; }
-  .callout-inner { @apply grid items-center gap-6 sm:grid-cols-[1fr_auto]; }
-  .callout-inner p { @apply mt-3; }
-  .callout-inner .button { @apply justify-self-start; }
   .contact-form { @apply grid gap-5 [color-scheme:dark]; }
   .field-row { @apply grid gap-4 sm:grid-cols-2; }
   .contact-form label { @apply grid min-w-0 gap-2 text-sm font-semibold text-paper; }
@@ -91,3 +87,27 @@
 .project-slick .slick-slide { height: auto; }
 .project-slick .slick-slide > div { height: 100%; }
 .project-slick .slick-slide[aria-hidden="true"] { interactivity: inert; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .projects-hero-photo { animation: projects-photo-settle 1100ms ease-out both; }
+  .projects-hero-copy { animation: projects-copy-rise 600ms ease-out both; }
+
+  @supports (animation-timeline: view()) {
+    .projects-photo-tile,
+    .expertise-image-reveal {
+      animation: projects-copy-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
+}
+
+@keyframes projects-photo-settle {
+  from { transform: scale(1.06); }
+  to { transform: scale(1); }
+}
+
+@keyframes projects-copy-rise {
+  from { opacity: .45; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}

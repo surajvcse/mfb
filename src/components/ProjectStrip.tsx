@@ -28,7 +28,9 @@ export function ProjectStrip() {
   return (
     <section className="overflow-hidden border-b border-line bg-paper py-10 sm:py-14" aria-labelledby="project-strip-title">
       <div className="project-shell grid grid-cols-[1fr_auto_1fr] items-center">
-        <h2 id="project-strip-title" className="col-start-2 text-center font-sans text-3xl font-bold tracking-tight sm:text-5xl">Our Projects</h2>
+        <h2 id="project-strip-title" className="col-start-2 px-2 text-center font-sans text-[clamp(1.75rem,5vw,3.75rem)] leading-tight font-bold tracking-tight text-ink after:mx-auto after:mt-3 after:block after:h-1 after:w-12 after:rounded-full after:bg-gold sm:after:w-16">
+          Our Projects
+        </h2>
         <button className={`${controlClass} justify-self-end`} type="button" aria-label={playing ? 'Pause carousel' : 'Play carousel'} onClick={() => setPlaying((current) => !current)}>
           {playing ? <FiPause aria-hidden="true" /> : <FiPlay aria-hidden="true" />}
         </button>

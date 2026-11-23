@@ -1,50 +1,6 @@
 import { FiMinus, FiPlus } from 'react-icons/fi'
 import groundworksPhoto from '../Assets/hero/50.jpg'
-
-const expertise = [
-  {
-    title: 'Slope stabilisation',
-    summary: 'Slope reinforcement, drainage, and rockfall protection.',
-    services: [
-      'Ground and cable anchors', 'Self-drilling anchors and rock bolts', 'Shotcrete',
-      'Crib work', 'Wicker fencing', 'Wire netting', 'Rockfall barriers',
-      'Drain holes', 'Other natural hazard mitigation',
-    ],
-  },
-  {
-    title: 'Ground improvement and foundation engineering',
-    summary: 'Grouting, piling, and ground retention for demanding sites.',
-    services: [
-      'Jet grouting', 'TAM grouting', 'Fissure grouting', 'Chemical grouting',
-      'Cavity grouting', 'Deep-hole drilling and grouting', 'Water leakage control',
-      'Secant and contiguous piling', 'Soldier and sheet piling', 'Micropiling',
-      'King posts and plunge columns', 'Diaphragm walls',
-    ],
-  },
-  {
-    title: 'Design-build solutions',
-    summary: 'Integrated design and construction for rehabilitation and infrastructure.',
-    services: [
-      'Slope stabilisation', 'Ground improvement', 'Tunnel rehabilitation',
-      'Deep-seated slope failure remediation', 'Dam rehabilitation',
-      'Bridge rehabilitation', 'Hydropower projects', 'Underground mining projects',
-    ],
-  },
-  {
-    title: 'Tunnelling and specialised construction',
-    summary: 'Underground works, mining operations, and specialist civil construction.',
-    services: [
-      'Mine development and operation (MDO) for metal and coal', 'NATM tunnelling',
-      'Cut-and-cover tunnelling', 'Cross passages', 'Pipe roofing and forepoling',
-      'Raise-bore shaft sinking', 'Surge shaft excavation', 'Underground cavern excavation',
-      'Pipe jacking and microtunnelling',
-      'Sewerage works including HDD, manual jack pushing, open-cut excavation, and manholes',
-      'TBM tunnelling for metro and sewer systems', 'Dredging',
-      'Gabion and concrete retaining walls', 'Roadworks', 'Underwater concreting',
-      'Steel and structural works',
-    ],
-  },
-]
+import { expertise } from '../content/expertise'
 
 export function OurExpertise() {
   return (

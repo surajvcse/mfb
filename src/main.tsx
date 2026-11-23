@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { SiteLayout } from './layouts/SiteLayout'
 import { HomePage } from './pages/HomePage'
 import { AboutPage } from './pages/AboutPage'
-import { ServicesPage } from './pages/ServicesPage'
+import { ExpertisePage } from './pages/ExpertisePage'
 import { ProjectDetailPage } from './pages/ProjectDetailPage'
 import { ProjectsPage } from './pages/ProjectsPage'
 import { ContactPage } from './pages/ContactPage'
@@ -25,7 +25,7 @@ createRoot(document.getElementById('root')!).render(
         <Route element={<SiteLayout />}>
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
-          <Route path="services" element={<ServicesPage />} />
+          <Route path="services" element={<ExpertisePage />} />
           <Route path="projects" element={<ProjectsPage />} />
           <Route path="projects/:projectSlug" element={<ProjectDetailPage />} />
           <Route path="contact" element={<ContactPage />} />

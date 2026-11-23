@@ -10,7 +10,7 @@ const team = [
 
 const formatNumber = new Intl.NumberFormat('en-IN')
 
-export function NumberSection() {
+export function NumberSection({ compact = false }: { compact?: boolean }) {
   const counters = useRef<HTMLDListElement>(null)
   const [progress, setProgress] = useState(0)
 
@@ -45,7 +45,7 @@ export function NumberSection() {
   }, [])
 
   return (
-    <section className="relative isolate grid min-h-svh items-center overflow-hidden bg-[#07172F] py-16 text-paper sm:py-24" aria-labelledby="team-numbers-title">
+    <section className={`relative isolate grid items-center overflow-hidden bg-[#07172F] text-paper ${compact ? 'py-12 sm:py-16' : 'min-h-svh py-16 sm:py-24'}`} aria-labelledby="team-numbers-title">
       <img className="absolute inset-0 -z-20 size-full object-cover" src={sitePhoto} alt="" loading="lazy" decoding="async" />
       <div className="absolute inset-0 -z-10 bg-linear-to-br from-[#07172F]/95 via-[#07172F]/85 to-[#07172F]/75" aria-hidden="true" />
       <div className="site-shell">

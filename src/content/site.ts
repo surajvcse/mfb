@@ -7,7 +7,7 @@ export const site = {
 export const navigation = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
-  { label: 'Services', path: '/services' },
+  { label: 'Our Expertise', path: '/services' },
   { label: 'Our Projects', path: '/projects' },
   { label: 'Contact', path: '/contact' },
 ] as const

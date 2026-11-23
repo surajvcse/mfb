@@ -1,7 +1,6 @@
 import { FiMapPin } from 'react-icons/fi'
 import { Link, useParams } from 'react-router-dom'
 import { PageTitle } from '../components/PageTitle'
-import { ProjectCallout } from '../components/ProjectCallout'
 import { projectImage, projectLocation, projects } from '../content/projectGallery'
 import { NotFoundPage } from './NotFoundPage'
 
@@ -42,7 +41,6 @@ export function ProjectDetailPage() {
           ))}
         </div>
       </section>
-      <ProjectCallout />
     </>
   )
 }
