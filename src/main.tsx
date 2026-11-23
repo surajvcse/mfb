@@ -20,7 +20,7 @@ import './styles.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route element={<SiteLayout />}>
           <Route index element={<HomePage />} />
