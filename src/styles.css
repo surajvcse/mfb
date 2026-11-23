@@ -48,7 +48,7 @@
   .text-link { @apply font-semibold underline decoration-gold decoration-2 underline-offset-4 hover:decoration-ink; }
   .eyebrow { @apply mb-5 flex items-center gap-3 text-sm font-bold tracking-widest uppercase before:h-0.5 before:w-7 before:bg-gold before:content-['']; }
   .lede { @apply mt-5 max-w-2xl text-intro leading-relaxed; }
-  .hero-photo { @apply absolute inset-0 size-full scale-[1.02] object-cover blur-[1px]; }
+  .hero-photo { @apply absolute inset-0 size-full object-cover contrast-[1.08] saturate-[1.08]; }
   .hero-photo-enter { @apply motion-safe:animate-[hero-slide_850ms_ease-out_both]; }
   .section-padding, .services-section { @apply py-12 md:py-20; }
   .services-section { @apply border-t border-line; }

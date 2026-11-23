@@ -44,8 +44,8 @@ export function AboutPage() {
     <>
       <PageTitle title="About" />
       <section className="relative isolate flex min-h-[min(39rem,75svh)] items-end overflow-hidden bg-[#07172F] pt-20 pb-12 text-paper sm:pt-24 sm:pb-16" aria-labelledby="about-title">
-        <img className="projects-hero-photo absolute inset-0 -z-20 size-full object-cover object-[center_55%]" src={projectImage(10)} alt="" fetchPriority="high" />
-        <div className="absolute inset-0 -z-10 bg-linear-to-r from-[#07172F]/98 via-[#07172F]/80 to-[#07172F]/15" aria-hidden="true" />
+        <img className="absolute inset-0 -z-20 size-full object-cover object-[center_55%] contrast-[1.08] saturate-[1.06]" src={projectImage(10)} alt="" fetchPriority="high" />
+        <div className="absolute inset-0 -z-10 bg-linear-to-t from-[#07172F]/95 via-[#07172F]/75 to-transparent lg:bg-linear-to-r lg:from-[#07172F]/95 lg:via-[#07172F]/65 lg:via-48% lg:to-transparent" aria-hidden="true" />
         <div className="site-shell projects-hero-copy">
           <p className="eyebrow text-gold">About MFB Geotech</p>
           <h1 id="about-title" className="max-w-[19ch] text-balance leading-[1.08] font-bold tracking-tight">

@@ -44,7 +44,7 @@ export function Hero() {
           fetchPriority={step === 0 ? 'high' : 'auto'}
         />
         <img src={photos[next]} alt="" className="hidden" fetchPriority="low" />
-        <div className="absolute inset-0 bg-linear-to-r from-[#091e43]/95 via-[#091e43]/75 to-[#091e43]/35 md:via-[#091e43]/60 md:to-[#091e43]/15" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#091e43]/95 via-[#091e43]/78 to-[#091e43]/25 md:bg-linear-to-r md:via-[#091e43]/65 md:via-45% md:to-transparent" />
       </div>
 
       <div className="site-shell motion-safe:animate-[projects-copy-rise_750ms_ease-out_both]">

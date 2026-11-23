@@ -8,8 +8,8 @@ export function ExpertisePage() {
     <>
       <PageTitle title="Our Expertise" />
       <section className="relative isolate flex min-h-[min(34rem,68svh)] items-end overflow-hidden bg-[#07172F] py-12 text-paper sm:py-16" aria-labelledby="expertise-page-title">
-        <img className="projects-hero-photo absolute inset-0 -z-20 size-full object-cover object-[center_45%]" src={projectImage(8)} alt="" fetchPriority="high" />
-        <div className="absolute inset-0 -z-10 bg-linear-to-r from-[#07172F] via-[#07172F]/82 to-[#07172F]/25" aria-hidden="true" />
+        <img className="absolute inset-0 -z-20 size-full object-cover object-[center_45%] contrast-[1.08] saturate-[1.06]" src={projectImage(8)} alt="" fetchPriority="high" />
+        <div className="absolute inset-0 -z-10 bg-linear-to-t from-[#07172F]/95 via-[#07172F]/75 to-transparent lg:bg-linear-to-r lg:from-[#07172F]/95 lg:via-[#07172F]/65 lg:via-48% lg:to-transparent" aria-hidden="true" />
         <div className="site-shell projects-hero-copy">
           <p className="eyebrow text-gold">MFB Geotech</p>
           <h1 id="expertise-page-title" className="w-fit rounded-lg border-2 border-gold bg-[#07172F]/50 px-4 py-2 font-bold tracking-tight sm:px-6 sm:py-3">Our Expertise</h1>
