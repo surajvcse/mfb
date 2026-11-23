@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { FiPause, FiPlay } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 
 const photos = Object.entries(
   import.meta.glob<string>('../Assets/hero/*.jpg', { eager: true, import: 'default', query: '?url' }),
@@ -46,17 +47,24 @@ export function Hero() {
       </div>
 
       <div className="site-shell">
-        <p className="eyebrow">MFB Geotech</p>
-        <h1 id="hero-title" className="max-w-[22ch] text-balance font-sans text-[clamp(2rem,4.8vw,4.75rem)] leading-[1.04] font-bold tracking-tight">
-          A fast-growing multinational construction company
+        <h1 id="hero-title" className="font-sans text-[clamp(3rem,8vw,7.5rem)] leading-none font-black tracking-tight">
+          MFB Geotech
         </h1>
-        <p className="mt-4 max-w-2xl border-l-4 border-gold pl-4 text-base font-semibold sm:text-xl">
-          Tunnelling, foundations, slope stabilisation, and ground improvement
+        <p className="mt-4 text-lg font-semibold sm:text-2xl">
+          A fast-growing multinational construction company
         </p>
+        <ul className="mt-5 flex max-w-2xl flex-wrap gap-2" aria-label="Core services">
+          {['Tunnelling', 'Foundations', 'Slope stabilisation', 'Ground improvement'].map((service) => (
+            <li className="rounded-md border border-gold/65 bg-[#07172F]/85 px-3 py-2 text-sm font-bold text-gold sm:text-base" key={service}>
+              {service}
+            </li>
+          ))}
+        </ul>
         <p className="mt-4 max-w-2xl text-base sm:text-lg">
           We provide cost-effective, one-stop solutions by combining specialist design and construction.
           Our highly qualified teams and advanced equipment support safe, reliable project delivery.
         </p>
+        <Link className="button mt-6 focus-visible:outline-paper" to="/contact">Discuss your project</Link>
       </div>
 
       <button

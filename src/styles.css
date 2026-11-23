@@ -5,16 +5,15 @@
   --color-paper: #F3FBFF;
   --color-gold: #F4C500;
   --color-line: #CCDCE9;
-  --font-sans: "Helvetica Neue", Arial, sans-serif;
-  --font-display: Georgia, "Times New Roman", serif;
+  --font-sans: "Poppins", sans-serif;
 }
 
 @layer base {
-  body { @apply bg-paper text-ink antialiased; }
+  body { @apply bg-paper font-sans text-ink antialiased; }
   #root { @apply flex min-h-screen flex-col; }
   main { @apply flex-1 focus:outline-none; }
   p { @apply leading-relaxed; }
-  h1, h2 { @apply font-display font-normal tracking-tight; }
+  h1, h2 { @apply font-sans font-normal tracking-tight; }
   h1 { font-size: clamp(3rem, 6.5vw, 6.25rem); line-height: 1; }
   h2 { font-size: clamp(2.125rem, 4.3vw, 3.75rem); line-height: 1.08; }
   h3 { @apply text-xl font-semibold tracking-tight; }
@@ -63,33 +62,32 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .expertise-flip[open] {
+  .expertise-flip[open] > ul {
     animation: expertise-flip-in 360ms ease-out both;
   }
 }
 
 @keyframes expertise-flip-in {
-  from { transform: perspective(1000px) rotateY(-78deg); }
+  from { transform: perspective(1000px) rotateX(-18deg); }
   to { transform: perspective(1000px) rotateY(0); }
 }
 
+.project-slick .project-slick-card {
+  opacity: 0.48;
+}
+
+.project-slick .slick-center .project-slick-card {
+  border-color: var(--color-gold);
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  .project-strip-track {
-    animation: project-strip-scroll 115s linear infinite;
-  }
-  .project-strip-track[data-paused="true"],
-  .project-strip-window:hover .project-strip-track {
-    animation-play-state: paused;
-  }
-  .project-strip-window:focus-visible,
-  .project-strip-window:has(a:focus-visible) {
-    overflow-x: auto;
-  }
-  .project-strip-window:has(a:focus-visible) .project-strip-track {
-    animation: none;
+  .project-slick .project-slick-card {
+    transition: opacity 300ms ease, border-color 300ms ease;
   }
 }
 
-@keyframes project-strip-scroll {
-  to { transform: translateX(-50%); }
-}
+.project-slick .slick-track { display: flex; }
+.project-slick .slick-slide { height: auto; }
+.project-slick .slick-slide > div { height: 100%; }
+.project-slick .slick-slide[aria-hidden="true"] { interactivity: inert; }

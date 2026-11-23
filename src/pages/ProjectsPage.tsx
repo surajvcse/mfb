@@ -36,7 +36,7 @@ export function ProjectsPage() {
           <section className="scroll-mt-24 border-b border-line py-10 last:border-b-0 last:pb-0" id={id} aria-labelledby={`${id}-title`} key={id}>
             <h2 id={`${id}-title`}>{title}</h2>
             <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {projects.flatMap(({ slug, title: projectName, location, photos }) => photos.map((photo) => (
+              {projects.flatMap(({ slug, title: projectName, location, client, photos }) => photos.map((photo) => (
                 <Link className="group block overflow-hidden rounded-xl border border-line bg-white shadow-sm hover:border-gold" to={projectPath(slug)} key={photo}>
                   <div className="overflow-hidden">
                     <img
@@ -53,6 +53,7 @@ export function ProjectsPage() {
                       <FiMapPin className="mt-0.5 shrink-0 text-red-600" aria-hidden="true" />
                       {projectLocation(location)}
                     </p>
+                    {client && <p className="mt-2 text-sm"><strong>Client:</strong> {client}</p>}
                   </div>
                 </Link>
               )))}

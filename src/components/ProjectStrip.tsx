@@ -1,95 +1,83 @@
-import { useRef, useState } from 'react'
-import { FiMapPin } from 'react-icons/fi'
+import { useEffect, useRef, useState } from 'react'
+import { FiChevronLeft, FiChevronRight, FiMapPin, FiPause, FiPlay } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
-import { projectGroups, projectImage, projectLocation, projectPath, projects } from '../content/projectGallery'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import { projectImage, projectPath, projects } from '../content/projectGallery'
 
-const categories = [
-  { id: 'hydropower', label: 'Hydro Power Projects' },
-  { id: 'mining', label: 'Mining Work' },
-  { id: 'tunnelling', label: 'Tunnel Work' },
-  { id: 'geotechnical', label: 'Geotechnical & Slope Stabilisation Work' },
-  { id: 'dredging', label: 'Dredging Work' },
-]
-
-function ProjectList({ items, duplicate = false }: { items: typeof projects; duplicate?: boolean }) {
-  return (
-    <ul className={`flex shrink-0 gap-3 pr-3 ${duplicate ? 'motion-reduce:hidden' : ''}`} aria-hidden={duplicate || undefined}>
-      {items.map(({ slug, title, location, photos }) => (
-        <li className="w-58 shrink-0" key={slug}>
-          <Link
-            className="block h-full overflow-hidden rounded-lg border border-line bg-white shadow-sm hover:border-gold focus-visible:-outline-offset-4"
-            to={projectPath(slug)}
-            tabIndex={duplicate ? -1 : undefined}
-          >
-            <img className="aspect-video w-full bg-paper object-cover" src={projectImage(photos[0])} alt="" loading="lazy" decoding="async" />
-            <div className="p-4">
-              <h3 className="text-base">{title}</h3>
-              <p className="mt-2 flex items-start gap-2 text-sm">
-                <FiMapPin className="mt-0.5 shrink-0 text-red-600" aria-hidden="true" />
-                {projectLocation(location)}
-              </p>
-            </div>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  )
-}
+const motionPreference = '(prefers-reduced-motion: reduce)'
+const controlClass = 'grid size-11 place-items-center rounded-full border border-line bg-white/95 text-ink shadow-sm hover:border-gold hover:bg-gold'
 
 export function ProjectStrip() {
-  const [paused, setPaused] = useState(false)
-  const [categoryId, setCategoryId] = useState('')
-  const viewport = useRef<HTMLDivElement>(null)
-  const category = projectGroups.find(({ id }) => id === categoryId)
-  const visibleProjects = category ? projects.filter(({ category: title }) => title === category.title) : projects
+  const slider = useRef<Slider>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia(motionPreference).matches)
+  const [playing, setPlaying] = useState(() => !window.matchMedia(motionPreference).matches)
 
-  function selectCategory(id: string) {
-    if (viewport.current) viewport.current.scrollLeft = 0
-    setCategoryId(id)
-  }
+  useEffect(() => {
+    const preference = window.matchMedia(motionPreference)
+    function updateMotion(event: MediaQueryListEvent) {
+      setReducedMotion(event.matches)
+      if (event.matches) setPlaying(false)
+    }
+
+    preference.addEventListener('change', updateMotion)
+    return () => preference.removeEventListener('change', updateMotion)
+  }, [])
 
   return (
-    <section className="border-b border-line bg-paper py-8 sm:py-10" aria-labelledby="project-strip-title">
-      <div className="project-shell">
-        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-          <h2 id="project-strip-title" className="font-sans text-2xl font-black tracking-tight sm:text-3xl">Our Projects</h2>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link className="text-link" to="/projects">View all projects</Link>
-            {!category && <button
-              className="min-h-11 rounded-md border border-line bg-white px-3 text-sm font-semibold hover:border-ink motion-reduce:hidden"
-              type="button"
-              onClick={() => setPaused((current) => !current)}
-            >
-              {paused ? 'Resume scrolling' : 'Pause scrolling'}
-            </button>}
-          </div>
-        </div>
-        <div className="mb-5 flex gap-2 overflow-x-auto pb-2" role="group" aria-label="Filter projects by category">
-          {[{ id: '', label: 'All projects' }, ...categories].map(({ id, label }) => (
-            <button
-              className="min-h-11 shrink-0 rounded-full border border-line bg-white px-4 text-sm font-semibold hover:border-gold aria-pressed:border-gold aria-pressed:bg-gold"
-              type="button"
-              key={id}
-              aria-pressed={categoryId === id}
-              onClick={() => selectCategory(id)}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-        <div
-          ref={viewport}
-          className={`project-strip-window rounded-md ${category ? 'overflow-x-auto pb-3' : 'overflow-hidden motion-reduce:overflow-x-auto motion-reduce:pb-3'}`}
-          tabIndex={category ? 0 : undefined}
-          role="region"
-          aria-label={category ? category.title + ' projects' : 'Featured projects'}
-        >
-          <div className={`flex w-max ${category ? '' : 'project-strip-track'}`} data-paused={paused}>
-            <ProjectList items={visibleProjects} />
-            {!category && <ProjectList items={visibleProjects} duplicate />}
-          </div>
-        </div>
+    <section className="overflow-hidden border-b border-line bg-paper py-10 sm:py-14" aria-labelledby="project-strip-title">
+      <div className="project-shell grid grid-cols-[1fr_auto_1fr] items-center">
+        <h2 id="project-strip-title" className="col-start-2 text-center font-sans text-3xl font-bold tracking-tight sm:text-5xl">Our Projects</h2>
+        <button className={`${controlClass} justify-self-end`} type="button" aria-label={playing ? 'Pause carousel' : 'Play carousel'} onClick={() => setPlaying((current) => !current)}>
+          {playing ? <FiPause aria-hidden="true" /> : <FiPlay aria-hidden="true" />}
+        </button>
       </div>
+      <div className="relative mt-7">
+        <Slider
+          ref={slider}
+          className="project-slick"
+          arrows={false}
+          centerMode
+          centerPadding="12%"
+          slidesToShow={3}
+          responsive={[{ breakpoint: 1023, settings: { slidesToShow: 1, centerPadding: '18%' } }]}
+          infinite
+          swipeToSlide
+          autoplay={playing}
+          autoplaySpeed={100}
+          speed={reducedMotion ? 0 : playing ? 2800 : 350}
+          cssEase={playing ? 'linear' : 'ease-out'}
+          pauseOnHover
+          pauseOnFocus
+          afterChange={setActiveIndex}
+        >
+          {projects.map(({ slug, title, photos, location, client }, index) => (
+            <div className="h-full px-1.5 sm:px-2" key={slug}>
+              <Link className="project-slick-card block h-full overflow-hidden rounded-2xl border border-line bg-white focus-visible:-outline-offset-4" to={projectPath(slug)} tabIndex={index === activeIndex ? 0 : -1}>
+                <img className="h-[clamp(15rem,26vw,25rem)] w-full object-cover" src={projectImage(photos[0])} alt="" loading="lazy" decoding="async" />
+                <div className="px-4 py-3 sm:px-5 sm:py-4">
+                  <h3 className="text-base leading-snug sm:text-lg">{title}</h3>
+                  {location && (
+                    <p className="mt-1 flex items-start gap-2 text-sm">
+                      <FiMapPin className="mt-1 shrink-0 text-red-600" aria-hidden="true" />
+                      {location}
+                    </p>
+                  )}
+                  {client && <p className="mt-1 text-sm"><strong>Client:</strong> {client}</p>}
+                </div>
+              </Link>
+            </div>
+          ))}
+        </Slider>
+        <button className={`${controlClass} absolute top-[clamp(7.5rem,13vw,12.5rem)] left-3 -translate-y-1/2 sm:left-6`} type="button" aria-label="Previous project" onClick={() => slider.current?.slickPrev()}>
+          <FiChevronLeft className="size-5" aria-hidden="true" />
+        </button>
+        <button className={`${controlClass} absolute top-[clamp(7.5rem,13vw,12.5rem)] right-3 -translate-y-1/2 sm:right-6`} type="button" aria-label="Next project" onClick={() => slider.current?.slickNext()}>
+          <FiChevronRight className="size-5" aria-hidden="true" />
+        </button>
+      </div>
+
     </section>
   )
 }

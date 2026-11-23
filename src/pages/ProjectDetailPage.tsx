@@ -22,6 +22,7 @@ export function ProjectDetailPage() {
             <FiMapPin className="mt-1 shrink-0 text-red-600" aria-hidden="true" />
             {projectLocation(project.location)}
           </p>
+          {project.client && <p className="mt-2 text-lg"><strong>Client:</strong> {project.client}</p>}
         </div>
       </section>
       <section className="site-shell section-padding" aria-labelledby="project-photos-title">

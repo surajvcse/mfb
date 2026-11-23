@@ -11,6 +11,11 @@ import { ContactPage } from './pages/ContactPage'
 import { BlogsPage } from './pages/BlogsPage'
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage'
 import { NotFoundPage } from './pages/NotFoundPage'
+import '@fontsource/poppins/latin-400.css'
+import '@fontsource/poppins/latin-500.css'
+import '@fontsource/poppins/latin-600.css'
+import '@fontsource/poppins/latin-700.css'
+import '@fontsource/poppins/latin-900.css'
 import './styles.css'
 
 createRoot(document.getElementById('root')!).render(

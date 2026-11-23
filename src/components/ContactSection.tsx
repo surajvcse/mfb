@@ -22,7 +22,7 @@ export function ContactSection({ standalone = false }: { standalone?: boolean })
         style={{ backgroundImage: `url("${contactPhoto}")` }}
         aria-hidden="true"
       />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-r from-[#07172F]/94 via-[#07172F]/88 to-[#07172F]/96" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-r from-[#07172F]/82 via-[#07172F]/88 to-[#07172F]/95" aria-hidden="true" />
       <div className="site-shell grid items-start gap-x-12 gap-y-6 py-12 sm:py-16 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:py-20 xl:gap-x-20">
         <div>
           <p className="eyebrow mb-3 text-gold">Contact us</p>
@@ -34,15 +34,15 @@ export function ContactSection({ standalone = false }: { standalone?: boolean })
           </p>
         </div>
 
-        <div className="min-w-0 rounded-2xl border border-paper/25 border-t-2 border-t-gold bg-[#10233D] p-5 shadow-lg sm:p-8 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+        <div className="min-w-0 border-t border-paper/35 pt-5 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8 xl:pl-12">
           <p className="mb-4 text-xl font-bold">Project inquiry</p>
           <ContactForm />
         </div>
 
-        <ul className="grid gap-3 lg:col-start-1" aria-label="Direct contact details">
+        <ul className="divide-y divide-paper/25 border-y border-paper/25 lg:col-start-1" aria-label="Direct contact details">
           {details.map(({ label, Icon, text, href }) => (
-            <li className="flex min-w-0 items-start gap-3 rounded-xl border border-paper/20 bg-[#10233D] p-4 sm:gap-4" key={label}>
-              <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-gold/15 text-gold">
+            <li className="flex min-w-0 items-start gap-3 py-4 sm:gap-4" key={label}>
+              <span className="mt-0.5 grid size-6 shrink-0 place-items-center text-gold">
                 <Icon className="size-5" aria-hidden="true" />
               </span>
               <div className="min-w-0">
