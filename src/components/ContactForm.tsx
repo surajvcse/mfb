@@ -27,27 +27,31 @@ export function ContactForm() {
     if (saving) return
 
     const form = event.currentTarget
-    const fields = Object.fromEntries(new FormData(form))
-    const fieldsKey = JSON.stringify(fields)
-    if (lastAttempt.current?.fields !== fieldsKey) {
-      const bytes = crypto.getRandomValues(new Uint8Array(16))
-      const id = Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('')
-      lastAttempt.current = { id, fields: fieldsKey }
-    }
+    const sheetEndpoint = site.sheetUrl
 
     setSaving(true)
     setStatus('')
 
     try {
-      const response = await fetch(import.meta.env.BASE_URL + 'api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...fields, id: lastAttempt.current.id }),
-      })
-      const result = await response.json()
-      if (!response.ok || result.saved !== true) {
-        setStatus(typeof result.error === 'string' ? result.error : 'We couldn’t save your inquiry. Please try again.')
-        return
+      if (sheetEndpoint) {
+        const formData = new FormData(form)
+        await fetch(sheetEndpoint, {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors',
+        })
+      } else {
+        const fields = Object.fromEntries(new FormData(form))
+        const response = await fetch(import.meta.env.BASE_URL + 'api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(fields),
+        })
+        const result = await response.json()
+        if (!response.ok || result.saved !== true) {
+          setStatus(typeof result.error === 'string' ? result.error : 'We couldn’t save your inquiry. Please try again.')
+          return
+        }
       }
 
       form.reset()
