@@ -1,3 +1,4 @@
+import { FaFacebookF, FaLinkedinIn, FaYoutube } from 'react-icons/fa'
 import { FiMail, FiMapPin, FiPhone } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { offices } from '../content/offices'
@@ -6,6 +7,12 @@ import { Brand } from './Brand'
 
 const contactLink = 'flex min-h-9 w-fit max-w-full items-center gap-3 rounded-sm font-semibold hover:underline hover:decoration-gold hover:underline-offset-4 focus-visible:outline-paper'
 const footerLink = 'w-fit rounded-sm hover:text-gold focus-visible:outline-paper'
+
+const socialLinks = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/mfbgeotech/home/', Icon: FaLinkedinIn },
+  { label: 'YouTube', href: 'https://www.youtube.com/@MFBGEOTECH_IND', Icon: FaYoutube },
+  { label: 'Facebook', href: 'https://www.facebook.com/mfbgeotech/', Icon: FaFacebookF },
+]
 
 export function Footer() {
   return (
@@ -16,6 +23,19 @@ export function Footer() {
             <Brand lightFocus />
             <p className="mt-4 max-w-xs">A growing multinational construction company providing integrated, cost-effective solutions for tunnelling, foundations, slope stabilisation, and ground improvement.</p>
             <p className="mt-3 max-w-xs">Qualified teams and modern equipment support every stage of project delivery.</p>
+            <ul className="mt-5 flex gap-3" aria-label="MFB Geotech social media">
+              {socialLinks.map(({ label, href, Icon }) => (
+                <li key={label}>
+                  <a
+                    className="grid size-11 place-items-center rounded-full border border-paper/30 text-paper transition-colors hover:border-gold hover:bg-gold hover:text-ink focus-visible:outline-paper"
+                    href={href}
+                    aria-label={`MFB Geotech on ${label}`}
+                  >
+                    <Icon className="size-4" aria-hidden="true" />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <nav aria-label="Footer">

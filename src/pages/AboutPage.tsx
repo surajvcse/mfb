@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { PageTitle } from '../components/PageTitle'
 import { MoilAward } from '../components/MoilAward'
@@ -7,10 +8,9 @@ import { projectImage, projectPath } from '../content/projectGallery'
 
 const sections = [
   { id: 'overview', label: 'Overview' },
+  { id: 'recognition', label: 'Project award' },
   { id: 'expertise', label: 'Expertise' },
   { id: 'industries', label: 'Industries' },
-  { id: 'vision-mission', label: 'Vision & mission' },
-  { id: 'recognition', label: 'Project award' },
 ]
 
 const industries = [
@@ -24,13 +24,29 @@ const industries = [
 ]
 
 export function AboutPage() {
+  const expertiseGrid = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const cards = Array.from(expertiseGrid.current?.children ?? [])
+    if (!('IntersectionObserver' in window) || cards.length === 0) return
+
+    const observer = new IntersectionObserver((entries) => {
+      for (const { target, isIntersecting } of entries) {
+        target.setAttribute('data-in-view', String(isIntersecting))
+      }
+    }, { rootMargin: '-5% 0px -10% 0px' })
+
+    cards.forEach((card) => observer.observe(card))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       <PageTitle title="About" />
       <section className="relative isolate flex min-h-[min(39rem,75svh)] items-end overflow-hidden bg-[#07172F] pt-20 pb-12 text-paper sm:pt-24 sm:pb-16" aria-labelledby="about-title">
-        <img className="absolute inset-0 -z-20 size-full object-cover object-[center_55%]" src={projectImage(10)} alt="" fetchPriority="high" />
+        <img className="projects-hero-photo absolute inset-0 -z-20 size-full object-cover object-[center_55%]" src={projectImage(10)} alt="" fetchPriority="high" />
         <div className="absolute inset-0 -z-10 bg-linear-to-r from-[#07172F]/98 via-[#07172F]/80 to-[#07172F]/15" aria-hidden="true" />
-        <div className="site-shell">
+        <div className="site-shell projects-hero-copy">
           <p className="eyebrow text-gold">About MFB Geotech</p>
           <h1 id="about-title" className="max-w-[19ch] text-balance text-[clamp(2.5rem,5.5vw,5.25rem)] leading-[1.08] font-bold tracking-tight">
             Engineering the ground. Building stronger foundations.
@@ -56,13 +72,15 @@ export function AboutPage() {
           <p className="mt-4">We bring design and specialised construction together to deliver practical, cost-effective solutions tailored to each site. Our qualified teams use advanced equipment and proven construction methods to support safe, reliable project delivery.</p>
         </div>
         <img
-          className="aspect-[4/3] w-full rounded-2xl object-cover"
+          className="expertise-image-reveal aspect-[4/3] w-full rounded-2xl object-cover"
           src={projectImage(23)}
           alt="Munnar hydropower tunnel works"
           loading="lazy"
           decoding="async"
         />
       </section>
+
+      <div id="recognition" className="scroll-mt-24"><MoilAward /></div>
 
       <NumberSection compact />
 
@@ -82,17 +100,19 @@ export function AboutPage() {
             </Link>
           </div>
 
-          <div className="mt-7 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          <div ref={expertiseGrid} className="mt-7 grid auto-rows-fr gap-5 sm:grid-cols-2 xl:grid-cols-4">
             {expertise.map(({ id, title, summary, photo, photoCaption, projectSlug }) => (
-              <article className="expertise-image-reveal overflow-hidden rounded-xl border border-line bg-white" key={id}>
-                <Link className="group block overflow-hidden focus-visible:-outline-offset-4" to={projectPath(projectSlug)} aria-label={`View project: ${photoCaption}`}>
-                  <img className="aspect-[16/10] w-full object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-105 motion-safe:group-focus-visible:scale-105" src={projectImage(photo)} alt="" loading="lazy" decoding="async" />
-                </Link>
-                <div className="border-t-2 border-gold px-5 py-4">
-                  <h3 className="leading-snug">{title}</h3>
-                  <p className="mt-2 text-ink/85">{summary}</p>
-                </div>
-              </article>
+              <div className="about-expertise-slot min-w-0" key={id}>
+                <article className="about-expertise-card h-full overflow-hidden rounded-xl border-2 border-gold bg-white">
+                  <Link className="group block overflow-hidden focus-visible:-outline-offset-4" to={projectPath(projectSlug)} aria-label={`View project: ${photoCaption}`}>
+                    <img className="aspect-[16/10] w-full object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-105 motion-safe:group-focus-visible:scale-105" src={projectImage(photo)} alt="" loading="lazy" decoding="async" />
+                  </Link>
+                  <div className="border-t-2 border-gold px-5 py-4">
+                    <h3 className="leading-snug">{title}</h3>
+                    <p className="mt-2 text-ink/85">{summary}</p>
+                  </div>
+                </article>
+              </div>
             ))}
           </div>
         </div>
@@ -101,7 +121,7 @@ export function AboutPage() {
       <section id="industries" className="scroll-mt-24 border-y border-line bg-white">
         <div className="site-shell section-padding grid items-center gap-8 md:grid-cols-2 lg:gap-16">
           <img
-            className="aspect-[4/3] w-full rounded-2xl object-cover"
+            className="expertise-image-reveal aspect-[4/3] w-full rounded-2xl object-cover"
             src={projectImage(8)}
             alt="Pallivasal hydropower project site"
             loading="lazy"
@@ -117,27 +137,6 @@ export function AboutPage() {
           </div>
         </div>
       </section>
-
-
-      <section id="vision-mission" className="site-shell section-padding grid scroll-mt-24 gap-8 md:grid-cols-2 lg:gap-x-16">
-        <img
-          className="aspect-[16/7] w-full rounded-2xl object-cover md:col-span-2"
-          src={projectImage(33)}
-          alt="Rampura–Agucha mine slope stabilisation works"
-          loading="lazy"
-          decoding="async"
-        />
-        <div>
-          <h2>Our vision</h2>
-          <p className="mt-4">To be a trusted leader in specialised geotechnical engineering and construction, contributing to reliable, sustainable infrastructure in regional and international markets.</p>
-        </div>
-        <div>
-          <h2>Our mission</h2>
-          <p className="mt-4">To deliver high-quality engineering and construction through skilled teams, appropriate technology, and a consistent focus on safety, efficiency, and client needs.</p>
-        </div>
-      </section>
-
-      <div id="recognition" className="scroll-mt-24"><MoilAward /></div>
     </>
   )
 }

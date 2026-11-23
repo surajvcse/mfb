@@ -111,3 +111,40 @@
   from { opacity: .45; transform: translateY(1rem); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .about-expertise-card {
+    transition: transform 1000ms cubic-bezier(.2,.75,.25,1), opacity 850ms ease;
+    transform-origin: center;
+  }
+
+  .about-expertise-slot[data-in-view="false"] > .about-expertise-card {
+    opacity: .58;
+    transform: translateY(1.5rem) scale(.86);
+  }
+
+  .about-expertise-slot:focus-within > .about-expertise-card {
+    opacity: 1;
+    transform: none;
+  }
+
+  @supports (animation-timeline: view()) {
+    .award-scroll-reveal {
+      animation: projects-copy-rise ease-out both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 80%;
+    }
+  }
+
+  @supports (interpolate-size: allow-keywords) and selector(details::details-content) {
+    .about-expertise-details { interpolate-size: allow-keywords; }
+
+    .about-expertise-details::details-content {
+      block-size: 0;
+      overflow: clip;
+      transition: block-size 300ms ease, content-visibility 300ms allow-discrete;
+    }
+
+    .about-expertise-details[open]::details-content { block-size: auto; }
+  }
+}

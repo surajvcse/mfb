@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
-import { FiMenu, FiX } from 'react-icons/fi'
+import { FiMail, FiMenu, FiX } from 'react-icons/fi'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Brand } from '../components/Brand'
 import { Footer } from '../components/Footer'
 import { navigation } from '../content/site'
 
-const navLinkClass = 'relative flex min-h-11 items-center whitespace-nowrap rounded-md px-3 text-sm font-bold tracking-wide text-paper/75 uppercase transition-colors hover:text-paper focus-visible:outline-paper lg:px-3 xl:px-4 xl:text-base'
+const navLinkClass = 'relative flex min-h-11 items-center whitespace-nowrap rounded-lg px-4 text-[0.9375rem] font-semibold text-paper/85 transition-colors hover:bg-paper/10 hover:text-paper focus-visible:outline-paper lg:min-h-10 lg:px-3 xl:px-4'
+const activeNavClass = 'aria-[current=page]:bg-gold/12 aria-[current=page]:text-gold aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-4 aria-[current=page]:after:bottom-0 aria-[current=page]:after:h-0.5 aria-[current=page]:after:rounded-full aria-[current=page]:after:bg-gold'
 
 export function SiteLayout() {
   const { pathname } = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
+  const header = useRef<HTMLElement>(null)
   const menuButton = useRef<HTMLButtonElement>(null)
   const main = useRef<HTMLElement>(null)
   const previousPath = useRef(pathname)
@@ -22,11 +24,23 @@ export function SiteLayout() {
     main.current?.focus({ preventScroll: true })
   }, [pathname])
 
+  useEffect(() => {
+    if (!menuOpen) return
+
+    function closeOutside(event: PointerEvent) {
+      if (event.target instanceof Node && !header.current?.contains(event.target)) setMenuOpen(false)
+    }
+
+    document.addEventListener('pointerdown', closeOutside)
+    return () => document.removeEventListener('pointerdown', closeOutside)
+  }, [menuOpen])
+
   return (
     <>
       <a className="skip-link" href="#main-content">Skip to content</a>
       <header
-        className={`sticky top-0 z-30 h-18 border-b border-paper/15 bg-[#07172F]/96 text-paper shadow-sm backdrop-blur-md md:h-20 ${pathname === '/' ? '-mb-18 md:-mb-20' : ''}`}
+        ref={header}
+        className={`sticky top-0 z-30 h-18 border-b border-paper/15 bg-[#07172F]/95 text-paper shadow-[0_4px_16px_#07172F24] backdrop-blur-md md:h-20 ${pathname === '/' ? '-mb-18 md:-mb-20' : ''}`}
         onKeyDown={(event) => {
           if (event.key === 'Escape' && menuOpen) {
             setMenuOpen(false)
@@ -34,37 +48,45 @@ export function SiteLayout() {
           }
         }}
       >
-        <div className="site-shell flex h-full items-center justify-between gap-4 lg:grid lg:grid-cols-[1fr_auto_1fr]">
+        <div className="site-shell flex h-full items-center justify-between gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
           <div className="justify-self-start"><Brand lightFocus /></div>
           <button
             ref={menuButton}
             type="button"
-            className="inline-flex min-h-11 items-center gap-2 rounded-md border border-paper/30 px-3 text-sm font-semibold hover:bg-paper/10 focus-visible:outline-paper lg:hidden"
+            className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-paper/25 bg-paper/5 px-3.5 text-sm font-semibold hover:border-gold/60 hover:bg-paper/10 focus-visible:outline-paper lg:hidden"
             aria-expanded={menuOpen}
             aria-controls="main-navigation"
             onClick={() => setMenuOpen((open) => !open)}
           >
-            {menuOpen ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
+            {menuOpen ? <FiX className="size-5" aria-hidden="true" /> : <FiMenu className="size-5" aria-hidden="true" />}
             {menuOpen ? 'Close' : 'Menu'}
           </button>
           <nav
             id="main-navigation"
             aria-label="Main"
-            className={`${menuOpen ? 'flex' : 'hidden'} absolute inset-x-0 top-full flex-col gap-1 border-b border-paper/15 bg-[#07172F] px-5 py-3 shadow-lg sm:px-8 lg:static lg:flex lg:h-full lg:flex-row lg:items-center lg:gap-1 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none xl:gap-2`}
+            className={`${menuOpen ? 'flex' : 'hidden'} absolute inset-x-4 top-full mt-2 max-h-[calc(100svh-6rem)] flex-col gap-1 overflow-y-auto rounded-xl border border-paper/15 bg-[#0d213b] p-2 shadow-xl sm:inset-x-8 lg:static lg:mt-0 lg:flex lg:max-h-none lg:flex-row lg:items-center lg:gap-0.5 lg:overflow-visible lg:rounded-xl lg:bg-paper/5 lg:p-1 lg:shadow-none`}
           >
             {navigation.map(({ label, path }) => (
               <NavLink
-                className={`${navLinkClass} aria-[current=page]:bg-gold/12 aria-[current=page]:text-gold aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-3 aria-[current=page]:after:bottom-0 aria-[current=page]:after:h-0.5 aria-[current=page]:after:rounded-full aria-[current=page]:after:bg-gold`}
+                className={`${navLinkClass} ${activeNavClass}`}
                 key={path}
                 to={path}
-                onClick={() => setMenuOpen(false)}
+                onClick={() => {
+                  setMenuOpen(false)
+                  if (menuOpen && pathname.replace(/\/$/, '') === path.replace(/\/$/, '')) {
+                    menuButton.current?.focus()
+                  }
+                }}
                 end={path !== '/projects'}
               >
                 {label}
               </NavLink>
             ))}
           </nav>
-          <Link className="hidden min-h-11 items-center justify-self-end whitespace-nowrap rounded-md border border-gold bg-gold px-4 text-sm font-bold text-ink transition-colors hover:bg-paper focus-visible:outline-paper lg:inline-flex" to="/contact">Get in touch</Link>
+          <Link className="hidden min-h-11 items-center gap-2 justify-self-end whitespace-nowrap rounded-lg border border-gold bg-gold px-4 text-sm font-bold text-ink transition-colors hover:border-paper hover:bg-paper focus-visible:outline-paper lg:inline-flex" to="/contact">
+            <FiMail className="size-4" aria-hidden="true" />
+            Get in touch
+          </Link>
         </div>
       </header>
       <main id="main-content" ref={main} tabIndex={-1}>
