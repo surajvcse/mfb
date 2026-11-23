@@ -2,7 +2,7 @@ export const site = {
   name: 'MFB Geotech',
   phone: import.meta.env.VITE_CONTACT_PHONE?.trim(),
   email: import.meta.env.VITE_CONTACT_EMAIL?.trim() || 'info@mfbumi.com',
-  sheetUrl: import.meta.env.VITE_CONTACT_SHEET_URL?.trim() || '',
+  sheetUrl: import.meta.env.VITE_CONTACT_SHEET_URL?.trim() || 'https://script.google.com/macros/s/AKfycbwBwQ_rIRoUKcgALapnWpPkQse7xQCqLq-qj2Ki4QDWTFEM5PB9JbyltwG7ta0nh-DK/exec',
 }
 
 export const navigation = [
